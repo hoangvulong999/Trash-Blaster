@@ -43,8 +43,8 @@ public class TurretUI : MonoBehaviour {
     }
 
     public void OnUpgrade() {
-        if (CurrencyManager._instance.coins < GetPrice()) {
-            MessageHandler._instance.ShowMessage("Not enough coins", 1f, Color.red);
+        if (CurrencyManager._instance.crystals < GetPrice()) {
+            MessageHandler._instance.ShowMessage("Not enough crystals", 1f, Color.red);
 
             return;
         }
@@ -53,7 +53,7 @@ public class TurretUI : MonoBehaviour {
             Tutorial._instance.NextTutorial(1);
         }
 
-        CurrencyManager._instance.AddCoins(-GetPrice());
+        CurrencyManager._instance.AddCrystals(-GetPrice());
 
         PlayerPrefs.SetInt("TURRET" + id, level + 1);
 

@@ -13,12 +13,14 @@ public class LevelManager : MonoBehaviour {
     GameObject[] hideInGame;
 
     [SerializeField] GameObject winPanel, loosePanel, levelCompletedWindow;
-    [SerializeField] Text coinsEarnedText;
+    [SerializeField] Text crystalsEarnedText;
 
 
     [Header("Level Bar")]
     [SerializeField] Image fillImage;
     [SerializeField] Text levelText;
+
+    [SerializeField] private Animator playerAnimator;  // Reference to the player's animator
 
 
     private void Awake() {
@@ -35,6 +37,11 @@ public class LevelManager : MonoBehaviour {
         StartCoroutine(LerpSize(Player._instance.transform, Vector3.one * 2f, 0.5f));
 
         levelCompletedWindow.SetActive(false);
+
+        if (playerAnimator == null)
+        {
+            playerAnimator = Player._instance.GetComponent<Animator>();
+        }
     }
 
     public void LevelCompleted(bool isWin) {
@@ -42,9 +49,9 @@ public class LevelManager : MonoBehaviour {
             currentLevel++;
             PlayerPrefs.SetInt("CURRENT_LEVEL", currentLevel);
 
-            MessageHandler._instance.ShowMessage("Level Completed ;)", 2f, Color.green);
+            MessageHandler._instance.ShowMessage("Level Completed ", 2f, Color.green);
         } else {
-            MessageHandler._instance.ShowMessage("Level Failed :(", 2f, Color.red);
+            MessageHandler._instance.ShowMessage("Level Failed", 2f, Color.red);
 
             if (BlockSpawner._instance.coroutine != null)
                 StopCoroutine(BlockSpawner._instance.coroutine);
@@ -53,7 +60,13 @@ public class LevelManager : MonoBehaviour {
                 Destroy(b.gameObject);
         }
 
-        coinsEarnedText.text = "+" + CurrencyManager.GetSuffix((int)CurrencyManager._instance.coinsInLastRound);
+        // Enable animator when level is completed
+        if (playerAnimator != null)
+        {
+            playerAnimator.enabled = true;
+        }
+
+        crystalsEarnedText.text = "+" + CurrencyManager.GetSuffix((int)CurrencyManager._instance.crystalsInLastRound);
 
         winPanel.SetActive(isWin);
         loosePanel.SetActive(!isWin);
@@ -82,6 +95,12 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void OnClickStartLevel() {
+        // Disable animator when starting level
+        if (playerAnimator != null)
+        {
+            playerAnimator.enabled = false;
+        }
+
         ActivateArray(hideInGame, false);
         fillImage.fillAmount = 0;
 

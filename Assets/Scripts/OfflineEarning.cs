@@ -21,7 +21,7 @@ public class OfflineEarning : MonoBehaviour
 
 	public Text       offlineIncomeText;
 	public GameObject window;
-	float             coinsToAdd;
+	float             crystalsToAdd;
 
 	public TimeSpan allTimeSinceFirstTime;
 	/// <summary>
@@ -61,10 +61,10 @@ public class OfflineEarning : MonoBehaviour
 
 		window.SetActive(true);
 
-		coinsToAdd=Mathf.Min((float) sub.TotalMinutes,10*60)*LevelManager._instance.currentLevel/2f/600f;
-		CurrencyManager._instance.AddCoins((long) coinsToAdd);
+		crystalsToAdd=Mathf.Min((float) sub.TotalMinutes,10*60)*LevelManager._instance.currentLevel/2f/600f;
+		CurrencyManager._instance.AddCrystals((long) crystalsToAdd);
 
-		offlineIncomeText.text=CurrencyManager.GetSuffix((int) coinsToAdd);
+		offlineIncomeText.text=CurrencyManager.GetSuffix((int) crystalsToAdd);
 		Debug.Log("OFFLINE REWARD "+(int) sub.TotalMinutes);
 
 		PlayerPrefs.SetString("OLD_LOGIN_TIME",currentDateTime.ToString());
@@ -72,6 +72,6 @@ public class OfflineEarning : MonoBehaviour
 
 	public void DoubleEarnings()
 	{
-		//  CurrencyManager._instance.AddCoins(coinsToAdd);
+		CurrencyManager._instance.AddCrystals(crystalsToAdd);
 	}
 }

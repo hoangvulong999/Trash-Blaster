@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
         Player._instance.lives = 1 + extraLives;
         Player._instance.hpText.text = (1 + extraLives) + "";
 
-        CurrencyManager._instance.coinsInLastRound = 0;
+        CurrencyManager._instance.crystalsInLastRound = 0;
 
         StartCoroutine(DelayedStart());
     }

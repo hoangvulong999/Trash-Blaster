@@ -54,13 +54,13 @@ public class PlanetUI : MonoBehaviour {
         }
 
 
-        if (CurrencyManager._instance.coins < price) {
-            MessageHandler._instance.ShowMessage("Not enough coins", 1f, Color.red);
+        if (CurrencyManager._instance.crystals < price) {
+            MessageHandler._instance.ShowMessage("Not enough crystals", 1f, Color.red);
 
             return;
         }
 
-        CurrencyManager._instance.AddCoins(-price);
+        CurrencyManager._instance.AddCrystals(-price);
 
         PlayerPrefs.SetInt("PLANET_BOUGHT" + id, 1);
         PlayerPrefs.SetInt("CURRENT_PLANET", id);

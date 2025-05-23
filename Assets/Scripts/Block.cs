@@ -48,7 +48,7 @@ public class Block : MonoBehaviour {
 
         //Colliding with ball
         if (collision.gameObject.tag == "Ball") {
-            CurrencyManager._instance.AddCoins(Mathf.Min(hp, collision.gameObject.GetComponent<Ball>().damage));
+            CurrencyManager._instance.AddCrystals(Mathf.Min(hp, collision.gameObject.GetComponent<Ball>().damage));
 
             hp -= collision.gameObject.GetComponent<Ball>().damage;
 
@@ -67,7 +67,7 @@ public class Block : MonoBehaviour {
 
         //Colliding with ball
         if (collision.gameObject.tag == "Ball") {
-            CurrencyManager._instance.AddCoins(Mathf.Min(hp, collision.gameObject.GetComponent<Ball>().damage));
+            CurrencyManager._instance.AddCrystals(Mathf.Min(hp, collision.gameObject.GetComponent<Ball>().damage));
 
             hp -= collision.gameObject.GetComponent<Ball>().damage;
 

@@ -3,36 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CurrencyManager : MonoBehaviour {
+public class CurrencyManager : MonoBehaviour
+{
 
     public static CurrencyManager _instance;
 
-    public float coins;
-    public Text coinsText;
+    public float crystals;
+    public Text crystalsText;
 
-    public float coinsInLastRound;
+    public float crystalsInLastRound;
 
-    private void Awake() {
+    private void Awake()
+    {
         _instance = this;
     }
 
     // Use this for initialization
-    void Start() {
-        coins = PlayerPrefs.GetInt("COINS", 25);
+    void Start()
+    {
+        crystals = PlayerPrefs.GetInt("CRYSTALS", 25);
     }
 
     // Update is called once per frame
-    void Update() {
-        coinsText.text = GetSuffix((int)coins);
+    void Update()
+    {
+        crystalsText.text = GetSuffix((int)crystals);
     }
 
-    public static string GetSuffix(int num) {
+    public static string GetSuffix(int num)
+    {
         string suffix = "";
         string s = num.ToString();
 
         if (num < 10000) return num.ToString();
 
-        switch ((s.Length - 1) / 3) {
+        switch ((s.Length - 1) / 3)
+        {
             case 0:
                 suffix = string.Empty;
                 break;
@@ -71,10 +77,17 @@ public class CurrencyManager : MonoBehaviour {
         return "";
     }
 
-    public void AddCoins(float n) {
-        coins += n;
-        coinsInLastRound += n;
+    public void AddCrystals(float n)
+    {
+        crystals += n;
+        crystalsInLastRound += n;
 
-        PlayerPrefs.SetInt("COINS", (int)coins);
+        PlayerPrefs.SetInt("CRYSTALS", (int)crystals);
+    }
+    
+    public void Add1000Crystals()
+    {
+        AddCrystals(1000);
+        MessageHandler._instance.ShowMessage("Reward Collected", 1f, Color.green);
     }
 }
