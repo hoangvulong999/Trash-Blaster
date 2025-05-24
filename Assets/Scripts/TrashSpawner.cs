@@ -2,69 +2,69 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockSpawner : MonoBehaviour {
-    public static BlockSpawner _instance;
+public class TrashSpawner : MonoBehaviour {
+    public static TrashSpawner _instance;
 
-    [SerializeField] GameObject[] blockPrefabs;
+    [SerializeField] GameObject[] trashPrefabs;  // Array of different trash prefabs
 
-    public int blocksToSpawn, blocksDestroyed;
+    public int trashToSpawn, trashDestroyed;
     public float timeBetweenSpawns = 1f;
 
-    public List<Block> blocks;
+    public List<Trash> trashObjects;  // List to keep track of spawned trash
 
     private void Awake() {
         _instance = this;
     }
 
     public void StartWave() {
-        blocksToSpawn = Mathf.Min(15 + LevelManager._instance.currentLevel * 3, 40);
-        blocksDestroyed = 0;
+        trashToSpawn = Mathf.Min(15 + LevelManager._instance.currentLevel * 3, 40);
+        trashDestroyed = 0;
 
-        blocks = new List<Block>();
+        trashObjects = new List<Trash>();
 
         coroutine = StartCoroutine(SpawnCoroutine());
     }
 
     public Coroutine coroutine;
-    IEnumerator SpawnCoroutine() {
-        for (int i = 0; i < blocksToSpawn; i++) {
-            Spawn();
 
+    IEnumerator SpawnCoroutine() {
+        for (int i = 0; i < trashToSpawn; i++) {
+            SpawnTrash();
             yield return new WaitForSeconds(timeBetweenSpawns);
         }
     }
 
-    void Spawn() {
-        GameObject g = Instantiate(blockPrefabs[Random.Range(0, blockPrefabs.Length)]);
-        g.transform.position = GetBlockPosition();
+    void SpawnTrash() {
+        GameObject trash = Instantiate(trashPrefabs[Random.Range(0, trashPrefabs.Length)]);
+        trash.transform.position = GetTrashSpawnPosition();
 
-        var b = g.GetComponent<Block>();
-        b.hp = GetHp();
+        var trashComponent = trash.GetComponent<Trash>();
+        trashComponent.hp = GetTrashHealth();
 
-        blocks.Add(b);
+        trashObjects.Add(trashComponent);
     }
 
-    int GetHp() {
+    int GetTrashHealth() {
         int lvl = LevelManager._instance.currentLevel;
         float multiplier = 1 + lvl / 10f;
         return 3 + (int)Random.Range(lvl * 5 * 0.7f * multiplier, lvl * 5 * multiplier);
     }
 
-    public void BlockDestroyed(Block b, bool planet) {
-        blocks.Remove(b);
+    public void TrashDestroyed(Trash trash, bool planet) {
+        trashObjects.Remove(trash);
 
-        blocksDestroyed++;
-        LevelManager._instance.SetFill(blocksDestroyed / (float)blocksToSpawn);
+        trashDestroyed++;
+        LevelManager._instance.SetFill(trashDestroyed / (float)trashToSpawn);
 
         if (planet)
             return;
 
-        if (blocksDestroyed >= blocksToSpawn) {
+        if (trashDestroyed >= trashToSpawn) {
             LevelManager._instance.LevelCompleted(true);
         }
     }
 
-    Vector3 GetBlockPosition() {
+    Vector3 GetTrashSpawnPosition() {
         int n = Random.Range(0, 4);
 
         float x = 3.9f, y = 6f;

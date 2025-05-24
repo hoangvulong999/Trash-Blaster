@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4786111506602195899}
   - component: {fileID: 2852091336751956985}
   m_Layer: 0
-  m_Name: Flamethrower
+  m_Name: BlastForge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,12 +162,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f41abaa6d9aa244a06fad9ba580934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 1745751436853880, guid: 74c4f3185e4539a4f9051592a5c80250, type: 3}
+  ProjectilePrefab: {fileID: 1745751436853880, guid: 74c4f3185e4539a4f9051592a5c80250,
+    type: 3}
   fireTransform: {fileID: 4786111506288884677}
   fireRate: 10
   damage: 1
-  ballSpeed: 5
-  ballPool: []
+  ProjectileSpeed: 4
+  ProjectilePool: []
   multiplier: 0.05
   laser: {fileID: 0}
 --- !u!114 &4786111506602195894

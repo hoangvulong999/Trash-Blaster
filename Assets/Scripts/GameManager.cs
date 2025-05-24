@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private IEnumerator DelayedStart() {
-        BlockSpawner._instance.StartWave();
+        TrashSpawner._instance.StartWave();
         isPaused = false;
 
         Player._instance.ActivateMenuObjects(false);

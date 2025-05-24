@@ -53,10 +53,10 @@ public class LevelManager : MonoBehaviour {
         } else {
             MessageHandler._instance.ShowMessage("Level Failed", 2f, Color.red);
 
-            if (BlockSpawner._instance.coroutine != null)
-                StopCoroutine(BlockSpawner._instance.coroutine);
+            if (TrashSpawner._instance.coroutine != null)
+                StopCoroutine(TrashSpawner._instance.coroutine);
 
-            foreach (Block b in BlockSpawner._instance.blocks)
+            foreach (Trash b in TrashSpawner._instance.trashObjects)
                 Destroy(b.gameObject);
         }
 

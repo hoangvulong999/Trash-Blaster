@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 2417194166186564585}
   - component: {fileID: 4932743081159910315}
   m_Layer: 0
-  m_Name: BouncyShooter
+  m_Name: IonLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,12 +86,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f41abaa6d9aa244a06fad9ba580934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 1697121923431740, guid: 4861711e9c30d1648aff3e4d717fe6ac, type: 3}
+  ProjectilePrefab: {fileID: 1929353877246504, guid: fb92b4517d51eb74f8a3170c614e6562,
+    type: 3}
   fireTransform: {fileID: 2417194166931856279}
-  fireRate: 1
-  damage: 1
-  ballSpeed: 3
-  ballPool: []
+  fireRate: 0.5
+  damage: 4
+  ProjectileSpeed: 4
+  ProjectilePool: []
   multiplier: 1
   laser: {fileID: 0}
 --- !u!114 &2417194166186564580
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 12a4eef467b044e4784f1db411b9ff48, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0073b5c9fb56f448b758d23b3ddb78c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

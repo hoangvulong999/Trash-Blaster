@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6554607617895850439}
   - component: {fileID: 4542339947012512133}
   m_Layer: 0
-  m_Name: LightningTurret
+  m_Name: SpikePulse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,12 +55,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f41abaa6d9aa244a06fad9ba580934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 1136050290210760, guid: def4e626c6e53d94ba99a8e1fdc2528c, type: 3}
+  ProjectilePrefab: {fileID: 1136050290210760, guid: def4e626c6e53d94ba99a8e1fdc2528c,
+    type: 3}
   fireTransform: {fileID: 6554607618242683321}
   fireRate: 1
   damage: 3
-  ballSpeed: 2
-  ballPool: []
+  ProjectileSpeed: 4
+  ProjectilePool: []
   multiplier: 1
   laser: {fileID: 0}
 --- !u!114 &6554607617895850442

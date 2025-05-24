@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour {
-    [Header("Shooting")] public GameObject ballPrefab; //Ball to instantiate
+    [Header("Shooting")] public GameObject ProjectilePrefab; //Projectile to instantiate
     public Transform fireTransform;
     public float fireRate;
     public float damage;
-    public float ballSpeed;
+    public float ProjectileSpeed;
 
     float shooterTimer = 0f;
 
     [HideInInspector]
-    public List<GameObject> ballPool; //for object pooling -> better fps
+    public List<GameObject> ProjectilePool; //for object pooling -> better fps
 
     public float multiplier = 1;
 
@@ -20,7 +20,7 @@ public class Shooter : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        ballPool = new List<GameObject>();
+        ProjectilePool = new List<GameObject>();
 
     }
 
@@ -40,7 +40,7 @@ public class Shooter : MonoBehaviour {
     }
 
     /// <summary>
-    /// Shhoting balls, called in every frame
+    /// Sho0ting Projectiles, called in every frame
     /// </summary>
     void Shoot() {
         shooterTimer += Time.deltaTime;
@@ -50,32 +50,32 @@ public class Shooter : MonoBehaviour {
 
         shooterTimer = 0;
 
-        //Getting ball from pool
-        var g = GetBallFromPool();
+        //Getting Projectile from pool
+        var g = GetProjectileFromPool();
         g.SetActive(true);
         g.transform.position = fireTransform.position;
         g.transform.eulerAngles = transform.eulerAngles;
 
-        g.GetComponent<Ball>().damage = damage * multiplier;
-        g.GetComponent<Ball>().baseSpeed = ballSpeed;
+        g.GetComponent<Projectile>().damage = damage * multiplier;
+        g.GetComponent<Projectile>().baseSpeed = ProjectileSpeed;
 
         float angle = transform.parent.GetComponent<ItemSlot>().rotation + Player._instance.transform.localEulerAngles.z + 90;
-        g.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle)) * ballSpeed;
+        g.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle)) * ProjectileSpeed;
     }
 
 
     /// <summary>
-    /// if you have a free ball returns it, and if all balls are in usage instantiate one
+    /// if you have a free Projectile returns it, and if all Projectile are in usage instantiate one
     /// </summary>
     /// <returns></returns>
-    GameObject GetBallFromPool() {
-        foreach (GameObject g in ballPool)
+    GameObject GetProjectileFromPool() {
+        foreach (GameObject g in ProjectilePool)
             if (g.activeSelf == false)
                 return g;
 
-        var newBall = Instantiate(ballPrefab);
-        ballPool.Add(newBall);
+        var newProjectile = Instantiate(ProjectilePrefab);
+        ProjectilePool.Add(newProjectile);
 
-        return newBall;
+        return newProjectile;
     }
 }

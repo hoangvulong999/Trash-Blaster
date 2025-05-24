@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Block : MonoBehaviour {
+public class Trash : MonoBehaviour {
     public float hp;
     public float maxHp;
 
@@ -46,13 +46,13 @@ public class Block : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (isDestroyed) return;
 
-        //Colliding with ball
-        if (collision.gameObject.tag == "Ball") {
-            CurrencyManager._instance.AddCrystals(Mathf.Min(hp, collision.gameObject.GetComponent<Ball>().damage));
+        //Colliding with Projectile
+        if (collision.gameObject.tag == "Projectile") {
+            CurrencyManager._instance.AddCrystals(Mathf.Min(hp, collision.gameObject.GetComponent<Projectile>().damage));
 
-            hp -= collision.gameObject.GetComponent<Ball>().damage;
+            hp -= collision.gameObject.GetComponent<Projectile>().damage;
 
-            HitByBall(0.05f);
+            HitByProjectile(0.05f);
         }
 
 
@@ -65,24 +65,24 @@ public class Block : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (isDestroyed) return;
 
-        //Colliding with ball
-        if (collision.gameObject.tag == "Ball") {
-            CurrencyManager._instance.AddCrystals(Mathf.Min(hp, collision.gameObject.GetComponent<Ball>().damage));
+        //Colliding with Projectile
+        if (collision.gameObject.tag == "Projectile") {
+            CurrencyManager._instance.AddCrystals(Mathf.Min(hp, collision.gameObject.GetComponent<Projectile>().damage));
 
-            hp -= collision.gameObject.GetComponent<Ball>().damage;
+            hp -= collision.gameObject.GetComponent<Projectile>().damage;
 
-            HitByBall(0.05f);
+            HitByProjectile(0.05f);
         }
     }
 
     /// <summary>
-    /// Destroying a block
+    /// Destroying a Trash
     /// </summary>
-    public void DestroyBlock(bool planet = false) {
+    public void DestroyTrash(bool planet = false) {
         var g = Instantiate(GameManager._instance.destroyEffect[Random.Range(0, GameManager._instance.destroyEffect.Length)]); //Explosion effect
         g.transform.position = transform.position;
 
-        BlockSpawner._instance.BlockDestroyed(this, planet);
+        TrashSpawner._instance.TrashDestroyed(this, planet);
 
         isDestroyed = true;
 
@@ -93,12 +93,12 @@ public class Block : MonoBehaviour {
     /// OnHit event, scaling animation, checking HP
     /// </summary>
     /// <param name="scaleDif"></param>
-    public void HitByBall(float scaleDif) {
+    public void HitByProjectile(float scaleDif) {
         spr.color = Color.Lerp(Color.white, new Color(1, 1, 1, 0.6f), 1 - hp / (float)maxHp);
         hpText.text = (int)hp + "";
 
         if (hp <= 0) {
-            DestroyBlock();
+            DestroyTrash();
         }
 
 

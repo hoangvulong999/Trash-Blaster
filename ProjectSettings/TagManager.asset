@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Boundary
-  - Ball
-  - Block
   - Laser
+  - Projectile
+  - Trash
   layers:
   - Default
   - TransparentFX
@@ -17,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - Ball
+  - Projectile
   - 
   - 
   - 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Ball object
+/// Projectile object
 /// </summary>
-public class Ball : MonoBehaviour {
+public class Projectile : MonoBehaviour {
     public float baseSpeed = 3;
     public float damage;
 
@@ -31,12 +31,12 @@ public class Ball : MonoBehaviour {
 
     /// <summary>
     /// Trigger collision event
-    /// If the ball hits the bottom boundary, it deactivates itself and goes back to ball pool
+    /// If the Projectile hits the bottom boundary, it deactivates itself and goes back to Projectile pool
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Boundary") {
-            ResetBall();
+            ResetProjectile();
         }
     }
 
@@ -49,13 +49,13 @@ public class Ball : MonoBehaviour {
             rb.velocity += Vector2.down * 2f;
         }
 
-        if (collision.gameObject.tag.Equals("Block") && destroyOnHit) {
+        if (collision.gameObject.tag.Equals("Trash") && destroyOnHit) {
             if (onHitEffect != null) {
                 var g = Instantiate(onHitEffect);
                 g.transform.position = transform.position;
             }           
 
-            ResetBall();
+            ResetProjectile();
         }
 
         //if (SoundManager._instance.hasSound)
@@ -63,9 +63,9 @@ public class Ball : MonoBehaviour {
     }
 
     /// <summary>
-    /// Resetting ball to default options
+    /// Resetting Projectile to default options
     /// </summary>
-    void ResetBall() {
+    void ResetProjectile() {
         gameObject.SetActive(false);
         GetComponent<Rigidbody2D>().gravityScale = 0;
 

@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Block") {
+        if (collision.tag == "Trash") {
             lives--;
 
             hpText.text = lives + "";
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour {
                 LevelManager._instance.LevelCompleted(false);
             }
 
-            collision.GetComponent<Block>().DestroyBlock(true);
+            collision.GetComponent<Trash>().DestroyTrash(true);
         }
     }
 
